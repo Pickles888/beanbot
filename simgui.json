@@ -1,0 +1,9 @@
+{
+  "HALProvider": {
+    "Timing": {
+      "window": {
+        "visible": false
+      }
+    }
+  }
+}
