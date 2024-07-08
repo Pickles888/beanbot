@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.xrp.XRPMotor;
 import edu.wpi.first.wpilibj.xrp.XRPGyro;
@@ -40,6 +42,13 @@ public class XRPDrivetrain extends SubsystemBase {
 
   // Gyro
   private final XRPGyro m_gyro = new XRPGyro();
+
+  // Odometry
+  private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+    Rotation2d.fromDegrees(m_gyro.getAngle()), 
+    m_leftEncoder.getDistance(), m_rightEncoder.getDistance(),
+    getPose()
+  );
 
   /** Creates a new XRPDrivetrain. */
   protected XRPDrivetrain() {
