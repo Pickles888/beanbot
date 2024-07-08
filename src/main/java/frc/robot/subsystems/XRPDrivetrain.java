@@ -46,6 +46,11 @@ public class XRPDrivetrain extends SubsystemBase {
     m_rightMotor.setInverted(true);
   }
 
+  public void beanDrive(double vel, double rotationVel) {
+    m_leftMotor.set(vel + rotationVel);
+    m_rightMotor.set(vel - rotationVel);
+  }
+
   public void beanDrive(double forwardVel, double backVel, double rotationVel) {
     double vel = forwardVel - backVel;
     m_leftMotor.set(vel + rotationVel);

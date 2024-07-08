@@ -4,15 +4,15 @@
 
 package frc.robot;
 
+import frc.robot.controllers.Controller;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.commands.BeanDrive;
 import frc.robot.commands.HandMove;
 import frc.robot.subsystems.Hand;
+import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.XRPDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
-
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -24,7 +24,7 @@ public class RobotContainer {
   private final XRPDrivetrain m_XRPDrivetrain = XRPDrivetrain.getInstance();
   private final Hand m_hand = Hand.getInstance();
 
-  private final CommandXboxController m_controller = new CommandXboxController(0);
+  private final Controller m_controller = new Controller(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
