@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.xrp.XRPMotor;
+import edu.wpi.first.wpilibj.xrp.XRPGyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class XRPDrivetrain extends SubsystemBase {
@@ -35,6 +38,9 @@ public class XRPDrivetrain extends SubsystemBase {
   private final Encoder m_leftEncoder = new Encoder(4, 5);
   private final Encoder m_rightEncoder = new Encoder(6, 7);
 
+  // Gyro
+  private final XRPGyro m_gyro = new XRPGyro();
+
   /** Creates a new XRPDrivetrain. */
   protected XRPDrivetrain() {
     // Use inches as unit for encoder distances
@@ -55,6 +61,14 @@ public class XRPDrivetrain extends SubsystemBase {
     double vel = forwardVel - backVel;
     m_leftMotor.set(vel + rotationVel);
     m_rightMotor.set(vel - rotationVel);
+  }
+
+  public Pose2d getPose() {
+    return new Pose2d(
+      m_gyro.getRateX(),
+      m_gyro.getRateY(),
+      Rotation2d.fromDegrees(m_gyro.getAngle())
+    );
   }
 
   public void resetEncoders() {
