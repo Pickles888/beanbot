@@ -71,6 +71,10 @@ public class XRPDrivetrain extends SubsystemBase {
     );
   }
 
+  public void resetPose() {
+    m_gyro.reset();
+  }
+
   public void resetEncoders() {
     m_leftEncoder.reset();
     m_rightEncoder.reset();
