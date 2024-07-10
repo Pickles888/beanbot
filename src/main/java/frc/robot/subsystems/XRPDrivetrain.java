@@ -7,7 +7,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelPositions;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.xrp.XRPMotor;
 import edu.wpi.first.wpilibj.xrp.XRPGyro;
@@ -45,10 +48,13 @@ public class XRPDrivetrain extends SubsystemBase {
 
   // Odometry
   private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-    Rotation2d.fromDegrees(m_gyro.getAngle()), 
-    m_leftEncoder.getDistance(), m_rightEncoder.getDistance(),
-    getPose()
+    getRotation(), 
+    m_leftEncoder.getDistance(), m_rightEncoder.getDistance()
   );
+
+  // Kinematics
+  DifferentialDriveKinematics m_kinematics =
+    new DifferentialDriveKinematics(0.155);
 
   /** Creates a new XRPDrivetrain. */
   protected XRPDrivetrain() {
@@ -73,15 +79,27 @@ public class XRPDrivetrain extends SubsystemBase {
   }
 
   public Pose2d getPose() {
-    return new Pose2d(
-      m_gyro.getRateX(),
-      m_gyro.getRateY(),
-      Rotation2d.fromDegrees(m_gyro.getAngle())
+    return m_odometry.update(
+      getRotation(),
+      m_leftEncoder.getDistance(),
+      m_rightEncoder.getDistance()
     );
   }
 
-  public void resetPose() {
+  private Rotation2d getRotation() {
+    return Rotation2d.fromDegrees(m_gyro.getAngle());
+  }
+
+  public void resetPose(Pose2d pose) {
     m_gyro.reset();
+    m_odometry.resetPosition(
+      getRotation(), 
+      new DifferentialDriveWheelPositions(
+        m_leftEncoder.getDistance(),
+        m_rightEncoder.getDistance()
+      ), 
+      pose
+    );
   }
 
   public void resetEncoders() {
