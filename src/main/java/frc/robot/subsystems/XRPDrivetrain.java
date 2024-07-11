@@ -10,7 +10,7 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelPositions;
-import edu.wpi.first.math.util.Units;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.xrp.XRPMotor;
 import edu.wpi.first.wpilibj.xrp.XRPGyro;
@@ -99,6 +99,12 @@ public class XRPDrivetrain extends SubsystemBase {
         m_rightEncoder.getDistance()
       ), 
       pose
+    );
+  }
+
+  public ChassisSpeeds getCurrentSpeeds(double leftSpeeds, double rightSpeeds) {
+    return m_kinematics.toChassisSpeeds(
+      new DifferentialDriveWheelSpeeds(leftSpeeds, rightSpeeds)
     );
   }
 
