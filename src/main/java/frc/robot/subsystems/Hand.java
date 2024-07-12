@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.xrp.XRPServo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Hand extends SubsystemBase {
   
@@ -18,8 +19,7 @@ public class Hand extends SubsystemBase {
     return m_instance;
   }
 
-
-  private XRPServo m_servo = new XRPServo(4);
+  private XRPServo m_servo = new XRPServo(Constants.IDs.kServo);
 
   /** Creates a new Hand. */
   protected Hand() {}

@@ -13,5 +13,29 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static double kMaxDistance = 5;
+    public static final class DriveConstants {
+        public static double kMaxDistance = 5;
+
+        // Preset Measurements
+        public static final double kGearRatio =
+        (30.0 / 14.0) * (28.0 / 16.0) * (36.0 / 9.0) * (26.0 / 8.0); // 48.75:1
+        public static final double kCountsPerMotorShaftRev = 12.0;
+        public static final double kCountsPerRevolution = kCountsPerMotorShaftRev * kGearRatio; // 585.0
+        public static final double kWheelDiameterInch = 2.3622; // 60 mm
+    }
+
+    public static final class ControllerConstants { public static final int kPort = 0; }
+
+    public static final class IDs {
+        // Drive Subsystem
+        public static final int kLeftMotor = 0;
+        public static final int kRightMotor = 1;
+        public static final int kLeftEncoderA = 4;
+        public static final int kLeftEncoderB = 5;
+        public static final int kRightEncoderA = 6;
+        public static final int kRightEncoderB = 7;
+
+        // Servo
+        public static final int kServo = 4;
+    }
 }

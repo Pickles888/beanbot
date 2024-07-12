@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj.xrp.XRPMotor;
 import edu.wpi.first.wpilibj.xrp.XRPGyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.Constants;
+import frc.robot.Constants.DriveConstants;
+
 public class XRPDrivetrain extends SubsystemBase {
 
   private static XRPDrivetrain m_instance;
@@ -27,21 +30,21 @@ public class XRPDrivetrain extends SubsystemBase {
     return m_instance;
   }
 
-  private static final double kGearRatio =
-      (30.0 / 14.0) * (28.0 / 16.0) * (36.0 / 9.0) * (26.0 / 8.0); // 48.75:1
-  private static final double kCountsPerMotorShaftRev = 12.0;
-  private static final double kCountsPerRevolution = kCountsPerMotorShaftRev * kGearRatio; // 585.0
-  private static final double kWheelDiameterInch = 2.3622; // 60 mm
-
   // The XRP has the left and right motors set to
   // channels 0 and 1 respectively
-  private final XRPMotor m_leftMotor = new XRPMotor(0);
-  private final XRPMotor m_rightMotor = new XRPMotor(1);
+  public final XRPMotor m_leftMotor = new XRPMotor(Constants.IDs.kLeftMotor);
+  public final XRPMotor m_rightMotor = new XRPMotor(Constants.IDs.kRightMotor);
 
   // The XRP has onboard encoders that are hardcoded
   // to use DIO pins 4/5 and 6/7 for the left and right
-  private final Encoder m_leftEncoder = new Encoder(4, 5);
-  private final Encoder m_rightEncoder = new Encoder(6, 7);
+  public final Encoder m_leftEncoder = new Encoder(
+    Constants.IDs.kLeftEncoderA, 
+    Constants.IDs.kLeftEncoderB
+  );
+  public final Encoder m_rightEncoder = new Encoder(
+    Constants.IDs.kRightEncoderA, 
+    Constants.IDs.kRightEncoderB
+  );
 
   // Gyro
   private final XRPGyro m_gyro = new XRPGyro();
@@ -59,8 +62,12 @@ public class XRPDrivetrain extends SubsystemBase {
   /** Creates a new XRPDrivetrain. */
   protected XRPDrivetrain() {
     // Use inches as unit for encoder distances
-    m_leftEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
-    m_rightEncoder.setDistancePerPulse((Math.PI * kWheelDiameterInch) / kCountsPerRevolution);
+    m_leftEncoder.setDistancePerPulse(
+      (Math.PI * DriveConstants.kWheelDiameterInch) / DriveConstants.kCountsPerRevolution
+    );
+    m_rightEncoder.setDistancePerPulse(
+      (Math.PI * DriveConstants.kWheelDiameterInch) / DriveConstants.kCountsPerRevolution
+    );
     resetEncoders();
 
     // Invert right side since motor is flipped

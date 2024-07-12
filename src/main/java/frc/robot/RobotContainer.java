@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.BeanDrive;
 import frc.robot.commands.HandMove;
 import frc.robot.subsystems.Hand;
-import frc.robot.subsystems.Sensor;
 import frc.robot.subsystems.XRPDrivetrain;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.PrintCommand;
@@ -24,7 +23,7 @@ public class RobotContainer {
   private final XRPDrivetrain m_XRPDrivetrain = XRPDrivetrain.getInstance();
   private final Hand m_hand = Hand.getInstance();
 
-  private final Controller m_controller = new Controller(0);
+  private final Controller m_controller = new Controller(Constants.ControllerConstants.kPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

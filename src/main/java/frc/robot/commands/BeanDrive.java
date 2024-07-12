@@ -50,7 +50,7 @@ public class BeanDrive extends Command {
     double rotationalVel = m_rotationSup.getAsDouble();
 
 
-    if (distance < Constants.kMaxDistance) // if sensor is too close
+    if (distance < Constants.DriveConstants.kMaxDistance) // if sensor is too close
       forwardVel = Math.min(forwardVel, 0);
 
     m_drive.beanDrive(
