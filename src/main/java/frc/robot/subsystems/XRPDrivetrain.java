@@ -118,6 +118,29 @@ public class XRPDrivetrain extends SubsystemBase {
     );
   }
 
+  public void wallmartFieldOrientedDrive(double vel, double angle) {
+    double angleDiff = m_gyro.getAngle() - angle;
+
+    if (angleDiff <= DriveConstants.fieldOrientedLeeway && angleDiff >= -DriveConstants.fieldOrientedLeeway) {
+      drive(vel, vel);
+      return;
+    }
+    
+    if (angleDiff < -DriveConstants.fieldOrientedLeeway) {
+      double rotateVel = Math.max(angleDiff / DriveConstants.fieldOrientedRotateSpeed, -1);
+      
+      rotate(rotateVel);
+    } else if (angleDiff > DriveConstants.fieldOrientedLeeway) {
+      double rotateVel = Math.min(angleDiff / DriveConstants.fieldOrientedRotateSpeed, 1);
+      
+      rotate(rotateVel);
+    }
+  }
+
+  private void rotate(double vel) {
+    drive(vel, -vel);
+  }
+
   public void beanDrive(double vel, double rotationVel) {
     drive(vel + rotationVel, vel - rotationVel);
   }

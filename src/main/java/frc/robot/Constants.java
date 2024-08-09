@@ -26,6 +26,8 @@ public final class Constants {
 		public static final double kCountsPerRevolution = kCountsPerMotorShaftRev * kGearRatio; // 585.0
 		public static final double kWheelDiameterMeter = 0.06;
 		public static final double kMaxVel = 0.75;
+		public static final double fieldOrientedLeeway = 0.2;
+		public static final double fieldOrientedRotateSpeed = 2;
 	}
 
 	public static final class ControllerConstants {
